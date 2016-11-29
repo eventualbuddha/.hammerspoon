@@ -39,7 +39,6 @@ end)
 
 hs.hotkey.bind({"cmd", "alt", "ctrl"}, "R", function()
   hs.reload()
-  hs.notify.new({title="Hammerspoon", informativeText="Config Reloaded"}):send()
 end)
 
 local caffeine = hs.menubar.new()
@@ -59,3 +58,5 @@ if caffeine then
     caffeine:setClickCallback(caffeineClicked)
     setCaffeineDisplay(hs.caffeinate.get("displayIdle"))
 end
+
+hs.notify.new({title="Hammerspoon", informativeText="Config Loaded"}):send()
