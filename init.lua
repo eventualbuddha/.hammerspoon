@@ -41,6 +41,36 @@ hs.hotkey.bind({"cmd", "alt", "ctrl"}, "R", function()
   hs.reload()
 end)
 
+hs.hotkey.bind({"cmd", "alt", "ctrl"}, "Right", function()
+  local win = hs.window.focusedWindow()
+  local f = win:frame()
+  local screen = win:screen()
+  local nextScreen = screen:next()
+  local max = nextScreen:frame()
+
+  f.w = math.min(f.w, max.w)
+  f.h = math.min(f.h, max.h)
+  f.x = max.x + (max.w - f.w) / 2
+  f.y = max.y + (max.h - f.h) / 2
+
+  win:setFrame(f)
+end)
+
+hs.hotkey.bind({"cmd", "alt", "ctrl"}, "Left", function()
+  local win = hs.window.focusedWindow()
+  local f = win:frame()
+  local screen = win:screen()
+  local nextScreen = screen:previous()
+  local max = nextScreen:frame()
+
+  f.w = math.min(f.w, max.w)
+  f.h = math.min(f.h, max.h)
+  f.x = max.x + (max.w - f.w) / 2
+  f.y = max.y + (max.h - f.h) / 2
+
+  win:setFrame(f)
+end)
+
 local caffeine = hs.menubar.new()
 function setCaffeineDisplay(state)
     if state then
