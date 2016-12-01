@@ -37,6 +37,17 @@ hs.hotkey.bind({"cmd", "alt"}, "F", function()
   win:setFrame(f)
 end)
 
+hs.hotkey.bind({"cmd", "alt"}, "C", function()
+  local win = hs.window.focusedWindow()
+  local f = win:frame()
+  local screen = win:screen()
+  local max = screen:frame()
+
+  f.x = (max.w - f.w) / 2
+  f.y = (max.h - f.h) / 2
+  win:setFrame(f)
+end)
+
 hs.hotkey.bind({"cmd", "alt", "ctrl"}, "R", function()
   hs.reload()
 end)
