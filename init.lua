@@ -1,3 +1,5 @@
+-- Windowing hotkeys
+
 hs.hotkey.bind({"cmd", "alt"}, "Left", function()
   local win = hs.window.focusedWindow()
   local f = win:frame()
@@ -82,6 +84,13 @@ hs.hotkey.bind({"cmd", "alt", "ctrl"}, "Left", function()
   win:setFrame(f)
 end)
 
+hs.hotkey.bind({"cmd", "ctrl"}, "E", function()
+  local expose = hs.expose.new()
+  expose:toggleShow()
+end)
+
+-- Caffeine
+
 local caffeine = hs.menubar.new()
 function setCaffeineDisplay(state)
     if state then
@@ -99,5 +108,15 @@ if caffeine then
     caffeine:setClickCallback(caffeineClicked)
     setCaffeineDisplay(hs.caffeinate.get("displayIdle"))
 end
+
+-- Load extra config
+
+for file in hs.fs.dir('.') do
+  if string.find(file, '.lua$') ~= nil and file ~= 'init.lua' then
+    assert(loadfile(file))()
+  end
+end
+
+-- Startup messages
 
 hs.notify.new({title="Hammerspoon", informativeText="Config Loaded"}):send()
