@@ -12,6 +12,8 @@ function checkCoffeeScriptInJobReqs()
     return nil
   end
 
+  local found = false
+
   for url in string.gmatch(body, 'https://www.smartrecruiters.com/Square/%d+') do
     log.df('Requesting %s…', url)
     local status, body = hs.http.get(url)
@@ -23,11 +25,11 @@ function checkCoffeeScriptInJobReqs()
 
     if string.find(string.lower(body), 'coffeescript') ~= nil then
       log.df('Found CoffeeScript in %s', url)
-      return true
+      found = true
     end
   end
 
-  return false
+  return found
 end
 
 local coffeeScriptCheckTimer = hs.timer.doEvery(6 * 60 * 60, function()
