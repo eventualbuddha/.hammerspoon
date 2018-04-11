@@ -1,5 +1,7 @@
 -- Windowing hotkeys
 
+hs.window.animationDuration = 0
+
 hs.hotkey.bind({"cmd", "alt"}, "Left", function()
   local win = hs.window.focusedWindow()
   local f = win:frame()
