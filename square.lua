@@ -37,10 +37,16 @@ local coffeeScriptCheckTimer = hs.timer.doEvery(6 * 60 * 60, function()
 
   if result == true then
     -- found CoffeeScript =\
-    hs.notify.new({title="Square Job Reqs", informativeText="Found CoffeeScript in job reqs"}):send()
+    hs.notify.new({title='Square Job Reqs', informativeText='Found CoffeeScript in job reqs'}):send()
   elseif result == false then
     -- no CoffeeScript! tell someone
-    hs.notify.new({title="Square Job Reqs", informativeText="CoffeeScript is no longer present!"}):send()
+    hs.notify.new({title='Square Job Reqs', informativeText='CoffeeScript is no longer present!'}):send()
     coffeeScriptCheckTimer:stop()
   end
 end)
+
+local http = dofile('./lib/http.lua')
+
+http.registerURLHandler()
+http.registerShortenerHost('go.squareup.com')
+http.openHostWithBrowser('www.smartrecruiters.com', http.chromeBundleId)

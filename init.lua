@@ -115,7 +115,7 @@ end
 
 for file in hs.fs.dir('.') do
   if string.find(file, '.lua$') ~= nil and file ~= 'init.lua' then
-    assert(loadfile(file))()
+    dofile(file)
   end
 end
 
