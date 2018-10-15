@@ -2,8 +2,20 @@ local http = {}
 local log = hs.logger.new('lib/http', 'debug')
 
 http.safariBundleId = 'com.apple.Safari'
+http.firefoxBundleId = 'org.mozilla.firefox'
 http.chromeBundleId = 'com.google.Chrome'
-http.preferredBrowserBundleId = http.safariBundleId
+
+function readDefaultBrowserFile()
+  local fd = io.open(os.getenv('HOME') .. '/.default-browser', 'r')
+
+  if fd == nil then
+    return nil
+  end
+
+  return fd:read()
+end
+
+http.defaultBrowserBundleId = readDefaultBrowserFile() or http.safariBundleId
 
 -- Includes a common list of shortener services.
 http.shortenerHosts = {
@@ -50,15 +62,21 @@ function http.registerURLHandler()
       end
     end
 
-    local browserBundleId = hostToBundleIdMap[host] or http.preferredBrowserBundleId
+    local browserBundleId = hostToBundleIdMap[host] or http.defaultBrowserBundleId
 
     log.df('Forwarding to %s: %s', browserBundleId, fullURL)
-    hs.urlevent.openURLWithBundle(fullURL, browserBundleId)
+    if hs.urlevent.openURLWithBundle(fullURL, browserBundleId) == false then
+      log.ef('Unable to open browser %s', browserBundleId)
+    end
   end
 end
 
 function http.unregisterURLHandler()
   hs.urlevent.httpCallback = nil
+end
+
+function http.setDefaultBrowser(browserBundleId)
+  http.defaultBrowserBundleId = browserBundleId
 end
 
 function followURLRedirects(url, redirectsRemaining)
