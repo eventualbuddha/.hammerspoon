@@ -31,6 +31,7 @@ local hostToBundleIdMap = {}
 hostToBundleIdMap['meet.google.com'] = http.chromeBundleId
 hostToBundleIdMap['hangouts.google.com'] = http.chromeBundleId
 hostToBundleIdMap['chrome.google.com'] = http.chromeBundleId
+hostToBundleIdMap['plus.google.com'] = http.chromeBundleId
 
 function http.registerShortenerHost(host)
   table.insert(http.shortenerHosts, host)
