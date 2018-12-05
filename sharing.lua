@@ -10,7 +10,7 @@ function shareFromFrontmostApplication()
 	local isFileURL = false
 
 	log.f("Attempting to share from %s (%s)", appName, appID)
-	if appID == "com.google.Chrome" then
+	if appID == "com.google.Chrome" or appID == "com.brave.Browser" then
 		applescript = string.format("tell application \"%s\" to get URL of active tab of front window as string", appName)
 	elseif appID == "com.apple.Safari" then
 		applescript = string.format("tell application \"%s\" to return URL of front document as string", appName)
