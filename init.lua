@@ -147,6 +147,12 @@ if caffeine then
     setCaffeineDisplay(hs.caffeinate.get("displayIdle"))
 end
 
+-- HTTP config
+
+local http = dofile('./lib/http.lua')
+
+http.registerURLHandler()
+
 -- Load extra config
 
 for file in hs.fs.dir('.') do
