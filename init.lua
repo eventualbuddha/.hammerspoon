@@ -1,3 +1,5 @@
+hs.dockicon.hide()
+
 -- Windowing hotkeys
 
 hs.window.animationDuration = 0
