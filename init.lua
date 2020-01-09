@@ -10,9 +10,14 @@ hs.hotkey.bind({"cmd", "alt"}, "Left", function()
   local screen = win:screen()
   local max = screen:frame()
 
+  if f.x == max.x and f.y == max.y and f.w == max.w / 2 and f.h == max.h then
+    f.w = max.w * 2 / 3
+  else
+    f.w = max.w / 2
+  end
+
   f.x = max.x
   f.y = max.y
-  f.w = max.w / 2
   f.h = max.h
   win:setFrame(f)
 end)
@@ -23,9 +28,15 @@ hs.hotkey.bind({"cmd", "alt"}, "Right", function()
   local screen = win:screen()
   local max = screen:frame()
 
-  f.x = max.x + (max.w / 2)
+  if f.x == max.x + (max.w / 2) and f.y == max.y and f.w == max.w / 2 and f.h == max.h then
+    f.x = max.x + (max.w / 3)
+    f.w = max.w * 2 / 3
+  else
+    f.x = max.x + (max.w / 2)
+    f.w = max.w / 2
+  end
+
   f.y = max.y
-  f.w = max.w / 2
   f.h = max.h
   win:setFrame(f)
 end)
